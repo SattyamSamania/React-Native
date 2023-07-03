@@ -8,34 +8,55 @@ const Login =( {navigation} )=>{
     const [email, setEmail] = useState("");
     // console.log(userName)
     const [password, setPassword] = useState("");
-    // console.log(userName, password);
-
+    // console.log(email, password);
+    const [message, setMessage] = useState("");
 
     const handleLogin = async () => {
-        try {
-          const response = await axios.get('https://redesk.app/api/v1/login', {
-            email,
-            password,
-          });
-    
-          // Handle successful login
-          console.log(response.data);
-        } catch (error) {
-          // Handle login error
-          console.error(error);
+        if (email !== "" && password !== "") {
+          try {
+            const response = await fetch('https://redesk.app/api/v1/login', {
+              method: 'POST',
+              headers: {
+                'Accept': 'application/json',
+                'Content-type': 'application/json'
+              },
+              body: JSON.stringify({
+                'email': email,
+                'password': password
+              })
+            });
+      
+            const resData = await response.json();
+            
+            if (resData.status) {
+              
+                navigation.navigate('Home');
+
+            } else {
+              // Handle login error here
+              alert('Invalid email or password');
+            }
+          } catch (error) {
+            // Handle network or other errors here
+            alert('An error occurred while logging in.');
+          }
+        } else {
+          alert('Please enter email and password.');
         }
       };
+      
 
-    // const submit = () => {
+   
+    
+      
 
-    //     if(email === "Sam"  && password === "123456"){
-    //         Alert.alert(`Thank You ${email} for Login`)
-    //         navigation.navigate('Home')
-    //     }
-    //     else{
-    //         Alert.alert("Username or Password is Incorrect")
-    //     }
-    // }
+
+
+    
+
+
+
+   
 
 
     return(
