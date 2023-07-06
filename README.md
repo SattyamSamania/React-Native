@@ -1,2 +1,2 @@
 # React-Native
-This is React Native Project
+This is a Demo React Native Project with Login Screen and API Authentication.
