@@ -19,14 +19,7 @@ export default function App() {
       </Stack.Navigator>
 
     </NavigationContainer>
-    // <View style={styles.container}>
-    //   <Login/>
-      
-      
-
-    //   {/* <Button title="Login" onPress={ () => alert("Logged in Successfully")} /> */}
-    //   <StatusBar style="auto" />
-    // </View>
+   
   );
 }
 
