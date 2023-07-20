@@ -1,10 +1,12 @@
 /* screen/HomeScreen.js */
 import { HeaderBackButton } from 'react-navigation-stack';
 import { Platform } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
+import { BackHandler } from 'react-native';
 
 
-import React, { useEffect, useState } from 'react';
+
+import React, { useEffect, useState} from 'react';
 import {
   Text,
   View,
@@ -14,6 +16,7 @@ import {
   Dimensions,
   FlatList,
   TouchableOpacity,
+  Alert
 } from 'react-native';
 import { Card, Button  } from 'react-native-paper';
 // import { EvilIcons } from '@expo/vector-icons';
@@ -33,20 +36,34 @@ const HomeScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
   const [searchNow, setSearchNow] = useState(false);
 
-  const handleLogout= ()=> {
-    navigation.navigate('Login')
-  }
+  // const handleLogout= ()=> {
+  //   navigation.navigate('Login')
+  // }
 
  
-  HomeScreen.navigationOptions = ({ navigation }) => {
-    return {
-      headerLeft: () => {
-        // Hide the back button
-        return null;
-      },
-    };
-  };
   
+  // Exiting the  App 
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const onBackPress = () => {
+        Alert.alert("Hold on!", "Are you sure you want to exit?", [
+          {
+            text: "Cancel",
+            onPress: () => null,
+            style: "cancel"
+          },
+          { text: "YES", onPress: () => BackHandler.exitApp() }
+        ]);
+        return true;
+      };
+
+      BackHandler.addEventListener('hardwareBackPress', onBackPress);
+
+      return () =>
+        BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+    }, [])
+  );
 /**
  * useEffect will initially fetch the recent popular movies,
  * as the "searchTerm" is empty, it has a dependency "searchNow".
@@ -77,13 +94,13 @@ const HomeScreen = ({ navigation }) => {
   ) : (
     <View style={styles.container}>
       <View>
-        <Text>Welcome to the Movie App </Text>
-        <TouchableOpacity
+        <Text  style={styles.header}>Welcome to the Movie App </Text>
+        {/* <TouchableOpacity
         style={styles.logoutButton}
         onPress={handleLogout}
       >
         <Text style={styles.logoutButtonText}>Logout</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
         <Image
           source={{
             uri: `http://image.tmdb.org/t/p/w780${movies[0]?.backdrop_path}`,
@@ -191,6 +208,14 @@ const styles = StyleSheet.create({
     paddingTop: Constants.statusBarHeight,
     backgroundColor: '#212121',
   },
+
+  header: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    textAlign: 'center',
+    color: '#fff',
+  },
   inputCard: {
     position: 'absolute',
     top: -40,
@@ -222,9 +247,9 @@ const styles = StyleSheet.create({
   logoutButton: {
     backgroundColor: 'red',
     paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-    marginTop: 20,
+    paddingHorizontal: 10,
+    borderRadius: 8,
+    marginTop: 10,
   },
   logoutButtonText: {
     color: 'white',
