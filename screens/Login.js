@@ -14,7 +14,7 @@ const Login =( {navigation} )=>{
     const handleLogin = async () => {
         if (email !== "" && password !== "") {
           try {
-            const response = await fetch('https://redesk.app/api/v1/login', {
+            const response = await fetch('https://realteo.com/api/v1/login', {
               method: 'POST',
               headers: {
                 'Accept': 'application/json',
