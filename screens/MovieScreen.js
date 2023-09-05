@@ -68,7 +68,7 @@ export default function MovieScreen({ navigation, route }) {
         <BackButton navigation={navigation} />
         <Image
           source={{
-            uri: `http://image.tmdb.org/t/p/w780${movie?.backdrop_path}`,
+            uri: `https://image.tmdb.org/t/p/w780${movie?.backdrop_path}`,
           }}
           style={styles.banner}
         />

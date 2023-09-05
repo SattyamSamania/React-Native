@@ -103,7 +103,7 @@ const HomeScreen = ({ navigation }) => {
       </TouchableOpacity> */}
         <Image
           source={{
-            uri: `http://image.tmdb.org/t/p/w780${movies[0]?.backdrop_path}`,
+            uri: `https://image.tmdb.org/t/p/w780${movies[0]?.backdrop_path}`,
           }}
           style={styles.banner}
         />
