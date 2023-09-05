@@ -1,6 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Image,Text, Button, TouchableOpacity,  View } from 'react-native';
-import Login from './screens/Login';
 import HomeScreen from './screens/HomeScreen'
 import MovieScreen from './screens/MovieScreen'
 import { useNavigation } from '@react-navigation/native';
@@ -17,15 +16,14 @@ import { HeaderBackButton } from 'react-navigation-stack';
 const Stack = createNativeStackNavigator();
 const handleLogout= ({navigation})=> {
   // console.log("navigationnnnnr", navigation);
-  navigation.navigate('Login')
+  navigation.navigate('Home')
 }
 
 export default function App( ) {
   return (
 
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Login'>
-        <Stack.Screen name='Login' component={Login}/>
+      <Stack.Navigator initialRouteName='Home'>
       <Stack.Screen name='Home' component={HomeScreen}  
       
       options={(navigation) => ({ 
